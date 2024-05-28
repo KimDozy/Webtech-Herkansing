@@ -24,8 +24,8 @@ login_manager.init_app(app)
 
 login_manager.login_view = 'login' # Het inloggen wordt gedaan via de 'login' route
 
-from website import route
-from website import models
+# from website import route
+# from website import models
 
 # Importeren van blueprints voor de verschillende onderdelen van de website
 # from website.stage.views import stages_blueprint
