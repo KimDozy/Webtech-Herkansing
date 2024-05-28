@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container text-center">
+        {% if current_user.is_authenticated %}
+            <h1>Welkom, {{ current_user.username }}!</h1>
+            <p class="lead">Leuk dat je er bent.</p>
+            <p class="lead">Klik op een van de menubalkitems om verder te gaan.</p>
+        {% else %}
+            <h1 class="display-4">Stageapplicatie</h1>
+            <p class="lead">Bekijk hier het stageoverzicht of log in / registreer om gegevens toe te voegen en te verwijderen.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
