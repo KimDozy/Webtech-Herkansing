@@ -1,17 +1,9 @@
-from website.models import Film
+# acteur/forms.py
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField
-from wtforms.validators import ValidationError, DataRequired
+from wtforms import StringField, IntegerField, SubmitField
+from wtforms.validators import DataRequired
 
-# Formulier voor het toevoegen van een Acteur
 class VoegtoeActeur(FlaskForm):
-
-    voornaam = StringField('Voornaam', validators=[DataRequired()])
-    achternaam = StringField('Achternaam', validators=[DataRequired()])
-    submit = SubmitField('Acteur Toevoegen')
-
-    # Valideer of het opgegeven stage ID bestaat
-    def validate_id(self, id):
-        film = Film.query.get(id.data)
-        if film is None:
-            raise ValidationError('Dit film ID bestaat niet. Voer een geldig film ID in.')
+    naam = StringField('Naam', validators=[DataRequired()])
+    id = IntegerField('ID', validators=[DataRequired()])
+    submit = SubmitField('Toevoegen')

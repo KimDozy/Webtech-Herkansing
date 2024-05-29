@@ -23,16 +23,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Voornaam</th>
-                    <th>Achternaam</th>
+                    <th>Naam</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for acteur in acteurs %}
                 <tr>
-                    <td>{{ acteur.voornaam }}</td>
-                    <td>{{ acteur.achternaam }}</td>
+                    <td>{{ acteur.naam }}</td>
                     <td>
                         <a href="{{ url_for('acteur.acteur_edit', id=acteur.id) }}"
                             class="btn btn-secondary btn-sm">Bewerken</a>

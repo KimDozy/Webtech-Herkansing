@@ -1,66 +1,29 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+# regisseur/views.py
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required
-from website.regisseur.forms import VoegtoeRegisseur
+from website import db
 from website.models import Regisseur
-from app import db
+from website.regisseur.forms import VoegtoeRegisseur
 
-regisseur_bp = Blueprint('regisseur', __name__, url_prefix='/regisseur')
+regisseur_bp = Blueprint('regisseur', __name__, template_folder='templates/regisseur')
 
-@regisseur_bp.route('/', methods=['GET'])
-def regisseurs():
-    search_query = request.args.get('search', '')
-    if search_query:
-        regisseurs = Regisseur.query.filter(
-            db.or_(
-                Regisseur.voornaam.ilike(f'%{search_query}%'),
-                Regisseur.achternaam.ilike(f'%{search_query}%')
-            )
-        ).all()
-    else:
-        regisseurs:list[Regisseur] = Regisseur.query.all()
-    
-    return render_template('regisseur/regisseurs.html', regisseurs=regisseurs)
-
-
-
-@regisseur_bp.route('/add', methods=['GET', 'POST'])
 @login_required
-def regisseur_add():
-    form: VoegtoeRegisseur = VoegtoeRegisseur()
-    if form.validate_on_submit():
-        regisseur = Regisseur(voornaam=form.voornaam.data, achternaam=form.achternaam.data)
-        db.session.add(regisseur)
-        db.session.commit()
-        flash('De regisseur is succesvol toegevoegd!', 'success')
-        return redirect(url_for('regisseur.regisseurs'))
-    return render_template('regisseur/regisseur_add.html', form=form)
+@regisseur_bp.route('/toevoegen', methods=['GET', 'POST'])
+def toevoegen():
+    form = VoegtoeRegisseur()
 
-
-@regisseur_bp.route('/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
-def regisseur_edit(id):
-    regisseur:Regisseur = Regisseur.query.get_or_404(id)
-    form = VoegtoeRegisseur(obj=regisseur)
-    
     if form.validate_on_submit():
-        regisseur.voornaam = form.voornaam.data
-        regisseur.achternaam = form.achternaam.data
+        naam = form.naam.data
+        # Voeg andere velden toe zoals nodig
         
+        new_regisseur = Regisseur(naam=naam)
+        db.session.add(new_regisseur)
         db.session.commit()
-        flash('De regisseur is succesvol bijgewerkt!', 'success')
-        return redirect(url_for('regisseur.regisseurs', id=regisseur.id))
+        return redirect(url_for('regisseur.lijst'))
     
-    return render_template('regisseur/regisseur_edit.html', form=form)
+    return render_template('toevoegen_regisseur.html', form=form)
 
-
-@regisseur_bp.route('/delete/<int:id>')
-@login_required
-def delete_regisseur(id):
-    regisseur:Regisseur = Regisseur.query.get_or_404(id)
-    if regisseur.films:
-        flash('Cannot delete a Regisseur connected to films.', 'danger')
-    else:
-        db.session.delete(regisseur)
-        db.session.commit()
-        flash('Regisseur successfully deleted.', 'success')
-    return redirect(url_for('regisseur.regisseurs'))
+@regisseur_bp.route('/lijst')
+def lijst():
+    regisseurs = Regisseur.query.all()
+    return render_template('regisseur_lijst.html', regisseurs=regisseurs)
