@@ -8,7 +8,7 @@ from website.acteur.forms import VoegtoeActeur, VerwijderForm
 acteur_bp = Blueprint('acteur', __name__, template_folder='templates/acteur')
 
 @login_required
-@acteur_bp.route('/toevoegen', methods=['GET', 'POST'])
+@acteur_bp.route('/acttoevoegen', methods=['GET', 'POST'])
 def toevoegen():
     form = VoegtoeActeur()
 
@@ -29,7 +29,7 @@ def toevoegen():
     return render_template('acteur_toevoegen.html', form=form)
 
 @login_required
-@acteur_bp.route('/verwijderen', methods=['GET', 'POST'])
+@acteur_bp.route('/actverwijderen', methods=['GET', 'POST'])
 def verwijderen():
     form = VerwijderForm()
 
