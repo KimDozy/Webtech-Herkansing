@@ -8,7 +8,7 @@ from website.film.forms import VoegtoeFilm, VerwijderForm
 film_bp = Blueprint('film', __name__, template_folder='templates/film')
 
 @login_required
-@film_bp.route('/toevoegen', methods=['GET', 'POST'])
+@film_bp.route('/filtoevoegen', methods=['GET', 'POST'])
 def toevoegen():
     form = VoegtoeFilm()
 
@@ -25,7 +25,7 @@ def toevoegen():
 
 
 @login_required
-@film_bp.route('/verwijderen', methods=['GET', 'POST'])
+@film_bp.route('/filverwijderen', methods=['GET', 'POST'])
 def verwijderen():
     form = VerwijderForm()
 
@@ -41,7 +41,9 @@ def verwijderen():
     return render_template('toevoegen_film.html', form=form)
 
 
-@film_bp.route('/lijst')
+
+
+@film_bp.route('/fillijst', methods=['GET'])
 def lijst():
     films = Film.query.all()
     return render_template('film_lijst.html', films=films)
