@@ -47,4 +47,4 @@ def verwijderen():
         
         return redirect(url_for('acteur.lijst'))
     
-    return render_template('cteur/acteur_verwijderen.html', form=form)
+    return render_template('acteur/acteur_verwijderen.html', form=form)
