@@ -7,7 +7,7 @@ from website.rol.forms import VoegtoeRol, VerwijderRolForm
 rol_bp = Blueprint('rol', __name__, template_folder='templates/rol')
 
 @login_required
-@rol_bp.route('/toevoegen', methods=['GET', 'POST'])
+@rol_bp.route('/roltoevoegen', methods=['GET', 'POST'])
 def toevoegen():
     form = VoegtoeRol()
 
@@ -29,7 +29,7 @@ def toevoegen():
     return render_template('toevoegen_rol.html', form=form)
 
 @login_required
-@rol_bp.route('/verwijderen', methods=['GET', 'POST'])
+@rol_bp.route('/rolverwijderen', methods=['GET', 'POST'])
 def verwijderen():
     form = VerwijderRolForm()
 
@@ -45,7 +45,7 @@ def verwijderen():
     return render_template('rol_verwijderen.html', form=form)
 
 @login_required
-@rol_bp.route('/lijst', methods=['GET'])
+@rol_bp.route('/rollijst', methods=['GET'])
 def lijst():
     rollen = Rol.query.all()
     return render_template('lijst_rol.html', rollen=rollen)
