@@ -1,0 +1,16 @@
+<!-- templates/acteur/acteur_verwijderen.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Verwijder Acteur</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.naam.label }} {{ form.naam(size=32) }}
+        </div>
+        <!-- Add other form fields as needed -->
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+{% endblock %}

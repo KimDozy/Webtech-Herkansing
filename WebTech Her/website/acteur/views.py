@@ -1,10 +1,9 @@
 # acteur/views.py
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required
-from markupsafe import Markup
 from website import db
-from website.models import Acteur, Rol, Film
-from website.acteur.forms import VoegtoeActeur
+from website.models import Acteur
+from website.acteur.forms import VoegtoeActeur, VerwijderForm
 
 acteur_bp = Blueprint('acteur', __name__, template_folder='templates/acteur')
 
@@ -25,22 +24,27 @@ def toevoegen():
             db.session.add(new_acteur)
         
         db.session.commit()
-        return redirect(url_for('acteur.lijst'))
+        return redirect(url_for('acteur.toevoegen'))
     
-    return render_template('toevoegen_acteur.html', form=form)
+    return render_template('acteur_toevoegen.html', form=form)
 
 @login_required
-@acteur_bp.route('/verwijderen/<int:id>', methods=['POST'])
-def verwijderen(id):
-    acteur = Acteur.query.get_or_404(id)
-    roles = Rol.query.filter_by(acteur_id=id).all()
+@acteur_bp.route('/verwijderen', methods=['GET', 'POST'])
+def verwijderen():
+    form = VerwijderForm()
 
-    if roles:
-        roles_info = "<br>- " + "<br>- ".join([f"'{rol.personage}' in '{Film.query.get(rol.film_id).titel}'" for rol in roles])
-        flash(Markup(f'Kan acteur niet verwijderen omdat ze toegewezen zijn aan rollen:<br>{roles_info}'), 'danger')
+    if form.validate_on_submit():
+        naam = form.naam.data
+        # Additional fields as needed
+        
+        acteur_to_delete = Acteur.query.filter_by(naam=naam).first()
+        if acteur_to_delete:
+            db.session.delete(acteur_to_delete)
+            db.session.commit()
+            flash(f'Acteur {naam} succesvol verwijderd!', 'success')
+        else:
+            flash(f'Acteur {naam} niet gevonden!', 'danger')
+        
         return redirect(url_for('acteur.lijst'))
-    else:
-        db.session.delete(acteur)
-        db.session.commit()
-        flash('Acteur succesvol verwijderd', 'success')
-        return redirect(url_for('acteur.lijst'))
+    
+    return render_template('cteur/acteur_verwijderen.html', form=form)

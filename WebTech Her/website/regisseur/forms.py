@@ -15,3 +15,8 @@ class VoegtoeRegisseur(FlaskForm):
         film = Film.query.get(id.data)
         if film is None:
             raise ValidationError('Dit film ID bestaat niet. Voer een geldig film ID in.')
+        
+class VerwijderForm(FlaskForm):
+
+    id = IntegerField('ID van regisseur: ', validators=[DataRequired()])
+    submit = SubmitField('Verwijderen')
