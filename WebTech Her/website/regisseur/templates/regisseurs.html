@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Regisseurs</h2>
+        <a href="{{ url_for('regisseur.regisseur_add') }}" class="btn btn-primary">Add New Regisseur</a>
+    </div>
+
+    <!-- Search Form -->
+    <form action="{{ url_for('regisseur.regisseurs') }}" method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search for regisseurs...">
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </div>
+    </form>
+
+
+    {% include 'flash_messages_template.html' %}
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for regisseur in regisseurs %}
+                <tr>
+                    <td>{{ regisseur.voornaam }}</td>
+                    <td>{{ regisseur.achternaam }}</td>
+                    <td>
+                        <a href="{{ url_for('regisseur.regisseur_edit', id=regisseur.id) }}"
+                            class="btn btn-secondary btn-sm">Bewerken</a>
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#deleteConfirmationModal"
+                            data-regisseur-id="{{ regisseur.id }}">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this regisseur?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="#" class="btn btn-danger" id="deleteRegisseurBtn">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var deleteConfirmationModal = document.getElementById('deleteConfirmationModal')
+        deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-* attributes
+            var regisseurId = button.getAttribute('data-regisseur-id')
+            // Update the modal's delete button href
+            var deleteButton = deleteConfirmationModal.querySelector('.modal-footer #deleteRegisseurBtn')
+            deleteButton.href = `/regisseur/delete/${regisseurId}`
+        })
+    });
+</script>
+{% endblock %}

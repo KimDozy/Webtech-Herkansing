@@ -21,7 +21,7 @@ def welkom():
 def logout():
     logout_user()
     flash('Je bent uitgelogd') # Flashbericht bij uitloggen
-    return redirect(url_for('main.welkom'))
+    return redirect(url_for('welkom'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
