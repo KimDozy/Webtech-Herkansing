@@ -4,7 +4,7 @@ from website import db
 from website.models import Rol
 from website.rol.forms import VoegtoeRol, VerwijderRolForm
 
-rol_bp = Blueprint('rol', __name__, template_folder='templates/rol')
+rol_bp = Blueprint('rol', __name__, template_folder='templates')
 
 @login_required
 @rol_bp.route('/roltoevoegen', methods=['GET', 'POST'])

@@ -5,7 +5,7 @@ from website import db
 from website.models import Regisseur
 from website.regisseur.forms import VoegtoeRegisseur, VerwijderForm
 
-regisseur_bp = Blueprint('regisseur', __name__, template_folder='templates/regisseur')
+regisseur_bp = Blueprint('regisseur', __name__, template_folder='templates')
 
 @login_required
 @regisseur_bp.route('/regtoevoegen', methods=['GET', 'POST'])

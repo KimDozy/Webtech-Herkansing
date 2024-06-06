@@ -5,7 +5,7 @@ from website import db
 from website.models import Film
 from website.film.forms import VoegtoeFilm, VerwijderForm
 
-film_bp = Blueprint('film', __name__, template_folder='templates/film')
+film_bp = Blueprint('film', __name__, template_folder='templates')
 
 @login_required
 @film_bp.route('/filmtoevoegen', methods=['GET', 'POST'])
@@ -21,7 +21,7 @@ def toevoegen():
         db.session.commit()
         return redirect(url_for('film.lijst'))
     
-    return render_template('toevoegen_film.html', form=form)
+    return render_template('films_toevoegen.html', form=form)
 
 
 @login_required
@@ -38,7 +38,7 @@ def verwijderen():
         db.session.commit()
         return redirect(url_for('film.lijst'))
     
-    return render_template('toevoegen_film.html', form=form)
+    return render_template('films_toevoegen.html', form=form)
 
 
 

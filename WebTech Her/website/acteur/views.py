@@ -5,7 +5,7 @@ from website import db
 from website.models import Acteur
 from website.acteur.forms import VoegtoeActeur, VerwijderForm
 
-acteur_bp = Blueprint('acteur', __name__, template_folder='templates/acteur')
+acteur_bp = Blueprint('acteur', __name__, template_folder='templates')
 
 @login_required
 @acteur_bp.route('/acttoevoegen', methods=['GET', 'POST'])
