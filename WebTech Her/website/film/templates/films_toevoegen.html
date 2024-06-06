@@ -18,31 +18,6 @@
             {{ form.regisseur_id.label }} <span class="text-danger">*</span>
             {{ form.regisseur_id(class="form-control selectpicker", data_live_search="true") }}
         </div>
-        <div class="mb-3 form-group">
-            {{ form.jaar.label }} <span class="text-danger">*</span>
-            {{ form.jaar(class="form-control") }}
-        </div>
-        <div class="mb-3 form-group">
-            {{ form.trailer_url.label }}
-            {{ form.trailer_url(class="form-control") }}
-        </div>
-        <div class="mb-3 form-group">
-            {{ form.bezoekers.label }}
-            {{ form.bezoekers(class="form-control") }}
-        </div>
-        <div class="mb-3 form-group">
-            {{ form.omzet.label }}
-            {{ form.omzet(class="form-control") }}
-        </div>
-        <div class="mb-3 form-group">
-            {{ form.overzicht.label }}
-            {{ form.overzicht(class="form-control") }}
-        </div>
-        <!-- Add a file input field for the poster -->
-        <div class="mb-3 form-group">
-            {{ form.poster.label }}
-            {{ form.poster(class="form-control") }}
-        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

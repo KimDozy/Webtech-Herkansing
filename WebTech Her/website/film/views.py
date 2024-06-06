@@ -38,7 +38,7 @@ def verwijderen():
         db.session.commit()
         return redirect(url_for('film.lijst'))
     
-    return render_template('films_toevoegen.html', form=form)
+    return render_template('film_verwijderen.html', form=form)
 
 
 

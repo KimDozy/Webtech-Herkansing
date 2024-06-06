@@ -34,17 +34,17 @@ def verwijderen():
     form = VerwijderForm()
 
     if form.validate_on_submit():
-        naam = form.naam.data
+        id = form.id.data
         # Additional fields as needed
         
-        acteur_to_delete = Acteur.query.filter_by(naam=naam).first()
+        acteur_to_delete = Acteur.query.filter_by(id=id).first()
         if acteur_to_delete:
             db.session.delete(acteur_to_delete)
             db.session.commit()
-            flash(f'Acteur {naam} succesvol verwijderd!', 'success')
+            flash(f'Acteur {id} succesvol verwijderd!', 'success')
         else:
-            flash(f'Acteur {naam} niet gevonden!', 'danger')
+            flash(f'Acteur {id} niet gevonden!', 'danger')
         
         return redirect(url_for('acteur.lijst'))
     
-    return render_template('acteur/acteur_verwijderen.html', form=form)
+    return render_template('acteur_verwijderen.html', form=form)

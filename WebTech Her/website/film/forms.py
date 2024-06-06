@@ -11,5 +11,5 @@ class VoegtoeFilm(FlaskForm):
     # Formulier voor het verwijderen van een Film
 class VerwijderForm(FlaskForm):
 
-    id = IntegerField('ID van Film: ', validators=[DataRequired()])
+    titel = StringField('Titel', validators=[DataRequired()])
     submit = SubmitField('Verwijderen')

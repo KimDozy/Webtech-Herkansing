@@ -4,11 +4,11 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Regisseurs</h2>
-        <a href="{{ url_for('regisseur.regisseur_add') }}" class="btn btn-primary">Add New Regisseur</a>
+        <a href="{{ url_for('regisseur.toevoegen') }}" class="btn btn-primary">Add New Regisseur</a>
     </div>
 
     <!-- Search Form -->
-    <form action="{{ url_for('regisseur.regisseurs') }}" method="GET" class="mb-3">
+    <form action="{{ url_for('regisseur.lijst') }}" method="GET" class="mb-3">
         <div class="input-group">
             <input type="text" name="search" class="form-control" placeholder="Search for regisseurs...">
             <button type="submit" class="btn btn-outline-secondary">Search</button>
@@ -16,7 +16,7 @@
     </form>
 
 
-    {% include 'flash_messages_template.html' %}
+
 
 
     <div class="table-responsive">

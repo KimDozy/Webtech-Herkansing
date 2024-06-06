@@ -13,10 +13,11 @@ def toevoegen():
     form = VoegtoeRegisseur()
 
     if form.validate_on_submit():
-        naam = form.naam.data
+        voornaam = form.voornaam.data
+        achternaam = form.achternaam.data
         # Voeg andere velden toe zoals nodig
         
-        new_regisseur = Regisseur(naam=naam)
+        new_regisseur = Regisseur(voornaam=voornaam, achternaam=achternaam)
         db.session.add(new_regisseur)
         db.session.commit()
         return redirect(url_for('regisseur.lijst'))
@@ -29,10 +30,10 @@ def verwijderen():
     form = VerwijderForm()
 
     if form.validate_on_submit():
-        naam = form.naam.data
+        id = form.id.data
         # Voeg andere velden toe zoals nodig
         
-        new_regisseur = Regisseur(naam=naam)
+        new_regisseur = Regisseur(id=id)
         db.session.delete(new_regisseur)
         db.session.commit()
         return redirect(url_for('regisseur.lijst'))
@@ -42,4 +43,4 @@ def verwijderen():
 @regisseur_bp.route('/reglijst')
 def lijst():
     regisseurs = Regisseur.query.all()
-    return render_template('regisseur_lijst.html', regisseurs=regisseurs)
+    return render_template('regisseurs.html', regisseurs=regisseurs)

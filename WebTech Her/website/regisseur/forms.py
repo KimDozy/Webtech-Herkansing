@@ -10,7 +10,7 @@ class VoegtoeRegisseur(FlaskForm):
     achternaam = StringField('Achternaam', validators=[DataRequired()])
     submit = SubmitField('Regisseur Toevoegen')
 
-    # Valideer of het opgegeven stage ID bestaat
+    # Valideer of het opgegeven Film ID bestaat
     def validate_id(self, id):
         film = Film.query.get(id.data)
         if film is None:

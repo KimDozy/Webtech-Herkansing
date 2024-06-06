@@ -10,5 +10,6 @@ class VoegtoeActeur(FlaskForm):
 
 class VerwijderForm(FlaskForm):
 
+    naam = StringField('Naam', validators=[DataRequired()])
     id = IntegerField('ID van Acteur: ', validators=[DataRequired()])
     submit = SubmitField('Verwijderen')

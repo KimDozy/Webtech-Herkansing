@@ -26,7 +26,7 @@ def toevoegen():
         flash(f'Rol {naam} succesvol toegevoegd!', 'success')
         return redirect(url_for('rol.lijst'))
     
-    return render_template('toevoegen_rol.html', form=form)
+    return render_template('rol_toevoegen.html', form=form)
 
 @login_required
 @rol_bp.route('/rolverwijderen', methods=['GET', 'POST'])

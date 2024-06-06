@@ -18,4 +18,5 @@ class VoegtoeRol(FlaskForm):
 class VerwijderRolForm(FlaskForm):
 
     acteur_id = IntegerField('ID van regisseur: ', validators=[DataRequired()])
+    personage = StringField('Personage', validators=[DataRequired()])
     submit = SubmitField('Verwijderen')
